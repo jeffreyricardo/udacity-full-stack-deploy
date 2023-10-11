@@ -50,8 +50,6 @@ RDS was configured using the following settings:
 - Port: 5432
 - DB Instance: udacity-full-stack-db
 ```
-![RDS Configuration](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_RDS.png)
-
 
 ### AWS S3
 
@@ -61,8 +59,6 @@ S3 was configured using the following settings:
 - Object Ownership: ACLs Enabled, Bucket owner preferred to determine object access
 - Block Public Access: NO, Create PUBLIC bucket
 ```
-![S3 Configuration](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_S3.png)
-
 
 ### AWS Elastic Beanstalk
 
@@ -76,25 +72,9 @@ DNS CNAME Prefix: udagram-api-dev
 Spot Fleet: NO
 Platform/Version: Node.js 18 running on 64bit Amazon Linux 2023/6.0.1
 ```
-![Elastic Beanstalk](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_ElasticBeanstalk.png)
-
 
 ## CircleCI
 
 A prerequisite is the creation of a free CircleCI account.  Once logged in, a minimum set of steps was required to connect CircleCI Workspace to Github repo.  This allows for an automatic build and deployment once changes are committed and pushed to the repo.
 
 CircleCI configuration and job definitions are handled via [.circleci/config.yml](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/.circleci/config.yml)
-
-
-It is also noted that Environment Variable configuration is required for the proper running of this application.  
-![Env Vars](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_circleci_env.png)
-
-
-
-
-
-A deployment hold was configured to allow for an approval workflow.  Pending a successful build, code would only be deployed to AWS if appropriate approval was received.
-
-![Build Hold](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_circleci_build_hold_deploy.png)
-```
-```
