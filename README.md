@@ -81,28 +81,20 @@ Platform/Version: Node.js 18 running on 64bit Amazon Linux 2023/6.0.1
 
 ## CircleCI
 
-A prerequisite is the creation of a free CircleCI account.  Once logged in, a minimum set of steps was required to connect CircleCI Workspace to Github repo.
+A prerequisite is the creation of a free CircleCI account.  Once logged in, a minimum set of steps was required to connect CircleCI Workspace to Github repo.  This allows for an automatic build and deployment once changes are committed and pushed to the repo.
 
-1. `cd starter/udagram-frontend`
-1. `npm run test`
-1. `npm run e2e`
+CircleCI configuration and job definitions are handled via [.circleci/config.yml](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/.circleci/config.yml)
 
-There are no Unit test on the back-end
 
-### Unit Tests:
+It is also noted that Environment Variable configuration is required for the proper running of this application.  
+![Env Vars](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_circleci_env.png)
 
-Unit tests are using the Jasmine Framework.
 
-### End to End Tests:
+![Build Success](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_circleci_build_success.png)
 
-The e2e tests are using Protractor and Jasmine.
 
-## Built With
+A deployment hold was configured to allow for an approval workflow.  Pending a successful build, code would only be deployed to AWS if appropriate approval was received.
 
-- [Angular](https://angular.io/) - Single Page Application Framework
-- [Node](https://nodejs.org) - Javascript Runtime
-- [Express](https://expressjs.com/) - Javascript API Framework
-
-## License
-
-[License](LICENSE.txt)
+![Build Hold](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_circleci_build_hold_deploy.png)
+```
+```
