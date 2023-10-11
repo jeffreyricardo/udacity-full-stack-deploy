@@ -1,20 +1,16 @@
 # Hosting a Full-Stack Application
 
-### **You can use you own project completed in previous courses or use the provided Udagram app for completing this final project.**
-
 ---
 
-In this project you will learn how to take a newly developed Full-Stack application built for a retailer and deploy it to a cloud service provider so that it is available to customers. You will use the aws console to start and configure the services the application needs such as a database to store product information and a web server allowing the site to be discovered by potential customers. You will modify your package.json scripts and replace hard coded secrets with environment variables in your code.
+This project is the third and final project for the Udacity Full Stack JavaScript Developer Nanodegree.  The ojective is to demonstrate the deployment of an Angular application (with frontend and backend components) to AWS using CircleCI through a single CI/CD workflow.
 
-After the initial setup, you will learn to interact with the services you started on aws and will deploy manually the application a first time to it. As you get more familiar with the services and interact with them through a CLI, you will gradually understand all the moving parts.
+The application can be accessed at the following URL:
+http://udacity-udagram-20231010.s3-website-us-east-1.amazonaws.com
 
-You will then register for a free account on CircleCi and connect your Github account to it. Based on the manual steps used to deploy the app, you will write a config.yml file that will make the process reproducible in CircleCi. You will set up the process to be executed automatically based when code is pushed on the main Github branch.
-
-The project will also include writing documentation and runbooks covering the operations of the deployment process. Those runbooks will serve as a way to communicate with future developers and anybody involved in diagnosing outages of the Full-Stack application.
 
 # Udagram
 
-This application is provided to you as an alternative starter project if you do not wish to host your own code done in the previous courses of this nanodegree. The udagram application is a fairly simple application that includes all the major components of a Full-Stack web application.
+I elected to utilize the provided Udagram Starter Code as a basis for this project.  
 
 
 
@@ -33,19 +29,59 @@ This application is provided to you as an alternative starter project if you do 
 
 ```
 
-### Installation
+### Project Setup
 
-Provision the necessary AWS services needed for running the application:
+### AWS
 
-1. In AWS, provision a publicly available RDS database running Postgres. <Place holder for link to classroom article>
-1. In AWS, provision a s3 bucket for hosting the uploaded files. <Place holder for tlink to classroom article>
-1. Export the ENV variables needed or use a package like [dotnev](https://www.npmjs.com/package/dotenv)/.
-1. From the root of the repo, navigate udagram-api folder `cd starter/udagram-api` to install the node_modules `npm install`. After installation is done start the api in dev mode with `npm run dev`.
-1. Without closing the terminal in step 1, navigate to the udagram-frontend `cd starter/udagram-frontend` to intall the node_modules `npm install`. After installation is done start the api in dev mode with `npm run start`.
+A minimum set of AWS services are required for the successful operation of this application:
+1. AWS RDS
+2. AWS S3
+3. AWS Elastic Beanstalk
 
-## Testing
 
-This project contains two different test suite: unit tests and End-To-End tests(e2e). Follow these steps to run the tests.
+### AWS RDS
+
+RDS was configured using the following settings:
+```
+- Standard Create
+- Engine: Postgres 13
+- Template: Free tier
+- Class: db.t3.micro
+- Port: 5432
+- DB Instance: udacity-full-stack-db
+```
+![RDS Configuration](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_RDS.png)
+
+
+### AWS S3
+
+S3 was configured using the following settings:
+```
+- Bucket Name: udacity-udagram-20231010
+- Object Ownership: ACLs Enabled, Bucket owner preferred to determine object access
+- Block Public Access: NO, Create PUBLIC bucket
+```
+![S3 Configuration](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_S3.png)
+
+
+### AWS Elastic Beanstalk
+
+EBS was configured via CLI using the following commands:
+```
+eb init
+eb create --single --keyname udagram.pem --instance-types t2.medium
+
+Environment Name: udagram-api-dev
+DNS CNAME Prefix: udagram-api-dev
+Spot Fleet: NO
+Platform/Version: Node.js 18 running on 64bit Amazon Linux 2023/6.0.1
+```
+![Elastic Beanstalk](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_ElasticBeanstalk.png)
+
+
+## CircleCI
+
+A prerequisite is the creation of a free CircleCI account.  Once logged in, a minimum set of steps was required to connect CircleCI Workspace to Github repo.
 
 1. `cd starter/udagram-frontend`
 1. `npm run test`
