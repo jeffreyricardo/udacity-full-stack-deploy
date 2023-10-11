@@ -90,7 +90,7 @@ It is also noted that Environment Variable configuration is required for the pro
 ![Env Vars](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_circleci_env.png)
 
 
-![Build Success](https://github.com/jeffreyricardo/udacity-full-stack-deploy/blob/main/screenshots/screenshot_circleci_build_success.png)
+
 
 
 A deployment hold was configured to allow for an approval workflow.  Pending a successful build, code would only be deployed to AWS if appropriate approval was received.
